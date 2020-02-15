@@ -1,7 +1,7 @@
 {
   "v": 1,
   "id": "cd325801-9802-42d3-8244-e6247fb89dd6",
-  "rev": 1,
+  "rev": 2,
   "name": "GeoIP",
   "summary": "GeoIP Lookups",
   "description": "GeoIP lookup tables and associated pipeline rules.",
@@ -243,7 +243,7 @@
         },
         "source": {
           "@type": "string",
-          "@value": "rule \"src_ip geoip lookup\"\nwhen\n  has_field(\"src_ip_is_internal\") && $message.dst_ip_is_internal == false\nthen\n  let geo = lookup(\"geoip\", to_string($message.dst_ip));\n  set_field(\"dst_ip_geolocation\", geo[\"coordinates\"]);\n  set_field(\"dst_ip_geo_country_code\", geo[\"country\"].iso_code);\n  set_field(\"dst_ip_geo_country_name\", geo[\"country\"].names.en);\n  set_field(\"dst_ip_geo_city_name\", geo[\"city\"].names.en);\nend"
+          "@value": "rule \"src_ip geoip lookup\"\nwhen\n  has_field(\"src_ip_is_internal\") && $message.src_ip_is_internal == false\nthen\n  let geo = lookup(\"geoip\", to_string($message.src_ip));\n  set_field(\"src_ip_geolocation\", geo[\"coordinates\"]);\n  set_field(\"src_ip_geo_country_code\", geo[\"country\"].iso_code);\n  set_field(\"src_ip_geo_country_name\", geo[\"country\"].names.en);\n  set_field(\"src_ip_geo_city_name\", geo[\"city\"].names.en);\nend"
         }
       },
       "constraints": [
